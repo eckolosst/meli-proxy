@@ -1,0 +1,14 @@
+FROM node:latest
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+COPY init.sql /docker-entrypoint-initdb.d/10-init.sql
+COPY use_statistic.sql /docker-entrypoint-initdb.d/20-use_statistic.sql
+
+EXPOSE 8080
+CMD [ "node", "index.js" ]

@@ -1,0 +1,17 @@
+services:
+  api:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      - PORT=8080
+      - USER_PG=postgres
+      - HOST_PG=postgres
+      - NAME_PG=postgres
+      - PASSWORD_PG=abc123
+      - PORT_PG=5432
+    ports:
+      - "5432:5432"
+
+  postgres:
+    image: postgres
