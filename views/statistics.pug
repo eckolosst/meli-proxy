@@ -1,0 +1,48 @@
+html
+    head
+        title='MeLi Proxy'
+        link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.css')
+        style(type="text/css").
+            div { margin-right: 5%}
+    script.
+        function filter(){
+            const ip = document.getElementById("ip").value || ''
+            const path = document.getElementById("path").value ||''
+            if(ip || path) {
+                location.href = `statistics`
+            }
+                var filter = ''
+                if(ip) {
+                    filter += `?ip=${ip}`
+                }
+                if(path) {
+                    const pre = ip ? '&' : '?'
+                    filter += `${pre}path=${path}`
+                }
+                location.href = `statistics${filter}`
+        }
+    body
+        br
+        h1.ui.center.aligned.header Estadísticas de uso
+        .ui.container
+            div.ui.input
+                input#ip(placeholder="IP")
+            div.ui.input
+                input#path.ui.input(placeholder="PATH")
+            button.ui.button(onclick="filter(ip,path)") Filtrar
+            table.ui.celled.table.center.aligned
+                thead
+                    tr
+                        th ID
+                        th IP
+                        th RUTA DESTINO
+                        th METODO HTTP
+                        //- th FECHA Y HORA
+                tbody
+                    each val in data
+                        tr
+                            td #{val.id}
+                            td #{val.ip_origin}
+                            td #{val.path_destination}
+                            td #{val.http_method}
+                            //- td=val.timestamp
